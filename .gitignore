@@ -1,0 +1,21 @@
+node_modules/
+.npm-cache/
+dist/
+build/
+desktop-dist/
+release/
+.runtime/
+local-data/
+outputs/
+test-results/
+*.log
+.env
+.env.*
+!.env.example
+media/*
+!media/.gitkeep
+!media/README.md
+!media/Together 测试影片.mp4
+!media/Together 测试影片.vtt
+config.local.json
+tools/caddy.exe

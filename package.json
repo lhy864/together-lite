@@ -1,0 +1,58 @@
+{
+  "name": "together-lite",
+  "version": "0.2.1",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.mjs",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run build:client && tsx watch server/index.ts",
+    "build:client": "vue-tsc --noEmit -p client/tsconfig.json && vite build",
+    "build:server": "tsc -p server/tsconfig.json",
+    "build:desktop": "vite build --config desktop/vite.config.ts",
+    "build": "npm run build:client && npm run build:server && npm run build:desktop",
+    "desktop": "electron .",
+    "desktop:dev": "npm run build && electron .",
+    "package:win": "npm run build && electron-builder --win nsis portable --x64",
+    "start": "node build/server/index.js",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "check": "vue-tsc --noEmit -p client/tsconfig.json && tsc --noEmit -p server/tsconfig.json"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.0",
+    "@fastify/static": "^10.1.6",
+    "fastify": "^5.0.0",
+    "qrcode": "^1.5.4",
+    "vue": "^3.5.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.0",
+    "@types/qrcode": "^1.5.5",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "electron": "44.7.0",
+    "electron-builder": "^26.15.3",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0",
+    "vue-tsc": "^3.0.0"
+  },
+  "build": {
+    "appId": "com.togetherlite.desktop",
+    "productName": "Together Lite",
+    "directories": { "output": "release", "buildResources": "desktop/assets" },
+    "files": ["desktop/*.mjs", "desktop/*.cjs", "desktop/assets/icon.ico", "desktop-dist/**/*", "build/server/**/*", "build/shared/**/*", "dist/**/*", "package.json", "THIRD-PARTY-NOTICES.md"],
+    "extraResources": [
+      { "from": "media/Together 测试影片.mp4", "to": "demo/Together 测试影片.mp4" },
+      { "from": "media/Together 测试影片.vtt", "to": "demo/Together 测试影片.vtt" },
+      { "from": "tools/caddy.exe", "to": "tools/caddy.exe" },
+      { "from": "tools/CADDY-LICENSE", "to": "tools/CADDY-LICENSE" }
+    ],
+    "win": { "icon": "desktop/assets/icon.ico", "target": ["nsis", "portable"] },
+    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "shortcutName": "Together Lite", "preCompressedFileExtensions": [], "artifactName": "Together Lite Setup ${version}.${ext}" },
+    "portable": { "artifactName": "Together Lite ${version}.${ext}" }
+  }
+}

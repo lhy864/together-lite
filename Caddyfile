@@ -1,0 +1,4 @@
+# Set automatically by scripts/start.mjs from config.local.json.
+{$TOGETHER_DOMAIN} {
+    reverse_proxy {$TOGETHER_UPSTREAM:127.0.0.1:3000}
+}

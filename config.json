@@ -1,0 +1,9 @@
+{
+  "host": "::",
+  "port": 3000,
+  "mediaDirectories": ["./media"],
+  "publicUrl": "",
+  "trustProxy": false,
+  "maxMembers": 4,
+  "roomIdleMinutes": 120
+}
